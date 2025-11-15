@@ -1105,10 +1105,28 @@ border-radius: 24px;
 }
 
 
-.hero::before {
+/* ───────── ヘッダー直下の謎の横線対策 ───────── */
+
+/* ヘッダーに仕込まれている装飾ラインを無効化 */
+.site-header::before,
+.site-header::after,
+.header-wrap::before,
+.header-wrap::after {
+  content: none !important;
   display: none !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
-.section::before {
-  display: block; /* 他のセクションはそのまま */
+/* ヒーローセクション側に線がある場合も念のためカット */
+.hero {
+  border-top: none !important;
+}
+
+.hero::before,
+.hero::after {
+  content: none !important;
+  display: none !important;
+  border: none !important;
+  box-shadow: none !important;
 }
