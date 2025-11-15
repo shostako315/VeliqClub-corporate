@@ -1105,3 +1105,10 @@ border-radius: 24px;
 }
 
 
+.hero::before {
+  display: none !important;
+}
+
+.section::before {
+  display: block; /* 他のセクションはそのまま */
+}
