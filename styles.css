@@ -897,29 +897,7 @@ margin: 32px auto;
 
 border-radius: 24px;
 
-/* FAQ の矢印アイコン追加 */
-.faq details summary {
-  position: relative;
-  list-style: none;
-  padding-right: 28px;
-  cursor: pointer;
-}
 
-.faq details summary::-webkit-details-marker {
-  display: none; /* デフォルト矢印消し */
-}
-
-/* ▼ 閉じている時 */
-.faq details summary::after {
-  content: "▼";
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 0.85rem;
-  color: #b89a3f; /* 控えめゴールドで高級感 */
-  transition: transform 0.25s ease, color 0.25s ease;
-}
 
 /* FAQ専用：summaryの矢印 */
 .faq details > summary {
