@@ -838,3 +838,47 @@ body{
   border:1px solid rgba(255,255,255,0.08);
   box-shadow:0 10px 32px rgba(0,0,0,.4);
 }
+/* 音楽監督セクション（写真＋テキスト横並び） */
+.md-area{
+  display:flex;
+  gap:28px;
+  align-items:center;
+  margin-top:28px;
+  flex-wrap:wrap;
+}
+
+.md-photo img{
+  width:230px;
+  max-width:100%;
+  border-radius:18px;
+  box-shadow:0 18px 40px rgba(0,0,0,.45);
+  display:block;
+}
+
+/* 既存 md-block を“カード”っぽく */
+.md-block{
+  flex:1;
+  min-width:260px;
+  background:linear-gradient(145deg,rgba(15,23,42,.9),rgba(15,23,42,.96));
+  border-radius:18px;
+  padding:20px 22px;
+  border:1px solid rgba(248,230,180,.18);
+}
+
+.md-label{
+  font-size:.85rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:rgba(248,230,180,.76);
+  margin-bottom:6px;
+}
+
+.md-name{
+  font-family:'Playfair Display',serif;
+  font-size:1.3rem;
+  margin-bottom:10px;
+}
+
+.md-note{
+  line-height:1.8;
+}
