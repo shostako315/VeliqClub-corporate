@@ -898,34 +898,215 @@ margin: 32px auto;
 border-radius: 24px;
 
 
+/* ==== ボタンの高級ホバー演出 ==== */
+.btn {
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    background-color .25s ease,
+    border-color .25s ease,
+    color .25s ease;
+  will-change: transform, box-shadow;
+}
 
-/* FAQ専用：summaryの矢印 */
-.faq details > summary {
+.btn-primary:hover,
+.btn-ghost:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45);
+}
+
+.btn-primary:active,
+.btn-ghost:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+}
+
+/* ==== Hero のさりげないグラデーションアニメ ==== */
+.hero {
   position: relative;
-  list-style: none;
-  padding-right: 28px;
-  cursor: pointer;
+  overflow: hidden;
 }
 
-.faq details > summary::-webkit-details-marker {
-  display: none; /* デフォルト矢印削除 */
-}
-
-/* ▼閉じている時 */
-.faq details > summary::after {
-  content: "▼";
+.hero::before {
+  content: "";
   position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 0.85rem;
-  color: #b89a3f;
-  transition: transform 0.25s ease, color 0.25s ease;
+  inset: -20%;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(255,255,255,0.08), transparent 55%),
+    radial-gradient(circle at 100% 100%, rgba(255,215,128,0.12), transparent 60%);
+  opacity: 0.7;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: heroGlow 14s ease-in-out infinite alternate;
 }
 
-/* ▲開いている時 */
-.faq details[open] > summary::after {
-  content: "▲";
-  color: #e8d9a2;
-  transform: translateY(-50%) rotate(180deg);
+@keyframes heroGlow {
+  0%   { transform: translate3d(-8%, -4%, 0) scale(1);   opacity: .55; }
+  50%  { transform: translate3d(4%, 2%, 0)    scale(1.05); opacity: .8; }
+  100% { transform: translate3d(2%, 6%, 0)    scale(1.02); opacity: .6; }
 }
+
+/* テキストは上に */
+.hero-inner {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ==== カード共通のホバー演出 ==== */
+.service-card,
+.plan {
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    background .25s ease,
+    border-color .25s ease;
+  will-change: transform, box-shadow;
+}
+
+.service-card:hover,
+.plan:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.55);
+  background: radial-gradient(circle at top left,
+            rgba(184,154,63,0.18), rgba(11,14,24,1));
+  border-color: rgba(232,217,162,0.4);
+}
+
+/* ==== Flow セクションのアニメ感 ==== */
+.flow li {
+  position: relative;
+  padding-left: 56px;
+  margin-bottom: 26px;
+  line-height: 1.7;
+  transition: transform .25s ease, opacity .25s ease;
+}
+
+.flow li span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: #b89a3f;
+  color: #0b0d17;
+  font-weight: 600;
+  margin-right: 8px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.12);
+}
+
+/* 左の縦ライン（既存があれば上書きせず追加風味） */
+.flow li::before {
+  content: "";
+  position: absolute;
+  left: 22px;
+  top: 0;
+  bottom: -18px;
+  width: 1px;
+  background: linear-gradient(to bottom,
+    rgba(184,154,63,0.4),
+    rgba(184,154,63,0));
+  opacity: .9;
+}
+
+/* ホバーで少し浮く */
+.flow li:hover {
+  transform: translateX(4px);
+  opacity: 1;
+}
+
+/* ==== オーケストラ写真のホバーズーム ==== */
+.orch-photos img,
+.md-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  transform: translateZ(0);
+  transition:
+    transform .35s ease,
+    box-shadow .35s ease,
+    filter .35s ease;
+}
+
+.orch-photos img:hover,
+.md-photo:hover {
+  transform: scale(1.02);
+  box-shadow: 0 26px 70px rgba(0,0,0,0.75);
+  filter: saturate(1.05) contrast(1.03);
+}
+
+
+
+/* ==== FAQ アコーディオン開閉アニメ ==== */
+.faq details {
+  margin-bottom: 10px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: radial-gradient(circle at top left,
+      rgba(184,154,63,0.18), rgba(10,12,22,1));
+  border: 1px solid rgba(230,233,238,0.12);
+  transition:
+    background .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease;
+}
+
+.faq details[open] {
+  border-color: rgba(232,217,162,0.55);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.55);
+}
+
+.faq details p {
+  margin-top: 10px;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity .22s ease, max-height .26s ease;
+}
+
+.faq details[open] p {
+  opacity: 1;
+  max-height: 260px; /* 1問の文章量的に十分な高さ */
+}
+
+
+/* ==== 資料ダウンロードセクションを少しだけ強調 ==== */
+.cta-download {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-download::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 0% 50%,
+      rgba(184,154,63,0.15), transparent 60%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .5s ease;
+}
+
+.cta-download-inner {
+  position: relative;
+  z-index: 1;
+  transition: transform .35s ease;
+}
+
+.cta-download:hover::before {
+  opacity: 1;
+}
+
+.cta-download:hover .cta-download-inner {
+  transform: translateY(-2px);
+}
+
+
+
+
+
+
+
