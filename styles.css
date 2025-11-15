@@ -639,3 +639,96 @@ details summary .toggle-icon{
 
 
 
+/* ページ全体をより黒っぽく */
+body{
+  background:#020207;
+}
+
+.section,
+.section.alt{
+  background:#020207;
+}
+
+/* 共通カードを少しだけ黒寄り＆フラットに */
+.service-card{
+  background:rgba(5,5,10,.96);
+  border-color:rgba(75,85,99,.65);
+}
+
+
+
+/* ご依頼の流れ：タイムライン風・ノーボックス */
+#flow .flow{
+  position:relative;
+  padding-left:8px;
+}
+
+/* 左の縦ライン（上から下につながる） */
+#flow .flow::before{
+  content:"";
+  position:absolute;
+  left:18px;
+  top:0;
+  bottom:0;
+  width:2px;
+  background:linear-gradient(
+    to bottom,
+    rgba(184,154,63,.9),
+    rgba(184,154,63,.15)
+  );
+}
+
+/* 各STEPの行 */
+#flow .flow li{
+  position:relative;
+  margin:0 0 12px 0;
+  padding:10px 8px 14px 46px; /* ← 左側の余白を広く */
+  background:transparent;     /* 箱をやめる */
+  border:none;
+  font-size:.9rem;
+}
+
+/* 丸番号：少し右に寄せて、文字との距離を作る */
+#flow .flow li span{
+  position:absolute;
+  left:10px;
+  top:10px;
+}
+
+/* 各行の下にうすい区切り線（最後はなし） */
+#flow .flow li:not(:last-child)::after{
+  content:"";
+  position:absolute;
+  left:46px;
+  right:0;
+  bottom:0;
+  height:1px;
+  background:rgba(55,65,81,.7);
+}
+
+
+
+
+.section .ttl{
+  position:relative;
+  padding-bottom:6px;
+  margin-bottom:20px;
+}
+
+.section .ttl::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:60px;
+  height:1px;
+  background:linear-gradient(
+    to right,
+    rgba(184,154,63,.9),
+    rgba(184,154,63,.2)
+  );
+}
+
+
+
+
