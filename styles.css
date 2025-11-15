@@ -1105,7 +1105,45 @@ border-radius: 24px;
 }
 
 
+/* ============================
+   Header brand + logo
+   ============================ */
 
+.site-header .brand {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+}
+
+.site-header .brand-text {
+  /* もともとの見た目を保ちつつ、念のため指定 */
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+/* ロゴ画像 */
+.site-header .brand-mark {
+  height: 26px;
+  width: auto;
+  display: block;
+  opacity: 0.9;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.45));
+  transition: transform .25s ease, opacity .25s ease;
+}
+
+/* ホバー時、少しだけリッチに */
+.site-header .brand:hover .brand-mark {
+  transform: translateY(-1px) scale(1.03);
+  opacity: 1;
+}
+
+/* スマホでは少し小さく */
+@media (max-width: 600px) {
+  .site-header .brand-mark {
+    height: 20px;
+  }
+}
 
 
 
