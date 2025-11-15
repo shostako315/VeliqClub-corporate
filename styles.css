@@ -542,3 +542,12 @@ details summary .toggle-icon{
     align-items:flex-start;
   }
 }
+
+/* 「実施にあたってのご準備・条件」セクションの余白調整 */
+#details .service-card{
+  margin-top:18px;          /* 各カードの上に少し余白 */
+}
+
+#details .service-card:first-of-type{
+  margin-top:28px;          /* 見出しと最初のカードの間を少し広めに */
+}
