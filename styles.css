@@ -574,3 +574,68 @@ details summary .toggle-icon{
 #details .service-card:first-of-type{
   margin-top:28px;          /* 見出しと最初のカードの間を少し広めに */
 }
+
+#use .service-card{
+  background:radial-gradient(circle at top left,
+            rgba(184,154,63,.18),
+            rgba(15,23,42,.96));
+  border-color:rgba(148,163,184,.55);
+}
+
+#details .service-card{
+  background:rgba(8,12,24,.96);
+  border-color:rgba(55,65,81,.85);
+  box-shadow:0 12px 24px rgba(15,23,42,.35);
+}
+
+#flow .flow{
+  position:relative;
+}
+
+#flow .flow::before{
+  content:"";
+  position:absolute;
+  left:16px;
+  top:0;
+  bottom:0;
+  width:2px;
+  background:linear-gradient(to bottom,
+             rgba(184,154,63,.8),
+             rgba(184,154,63,.15));
+}
+
+#flow .flow li{
+  position:relative;
+  margin-left:24px;
+  background:rgba(11,15,27,.96);
+  border-radius:14px;
+}
+
+#flow .flow li span{
+  position:absolute;
+  left:-32px;
+  top:16px;
+}
+
+
+.section .ttl{
+  position:relative;
+  padding-bottom:6px;
+  margin-bottom:20px;
+}
+
+.section .ttl::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:42px;
+  height:1px;
+  background:linear-gradient(to right,
+             rgba(184,154,63,.85),
+             rgba(184,154,63,.15));
+}
+
+
+
+
