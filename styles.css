@@ -1176,5 +1176,40 @@ border-radius: 24px;
   max-width: 120px;
 }
 
+/* ==== ヘッダー＆ロゴのレイヤー調整 ==== */
+.site-header {
+  position: relative;
+  z-index: 30;          /* hero の線より前面に出す */
+}
 
+/* ブランド部分の並び */
+.site-header .brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.site-header .brand-text {
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+}
+
+/* ヘッダーロゴ */
+.site-header .brand-mark {
+  height: 18px;         /* ロゴの縦サイズ（必要なら微調整） */
+  width: auto;
+  object-fit: contain;
+  display: block;
+  position: relative;
+  z-index: 31;          /* 線よりさらに前面 */
+  margin-top: -2px;     /* ほんの少しだけ上にずらして線を避ける */
+}
+
+/* タブレット以上で少しだけ大きく */
+@media (min-width: 768px) {
+  .site-header .brand-mark {
+    height: 22px;
+  }
+}
 
