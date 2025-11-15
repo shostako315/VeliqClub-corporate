@@ -1,0 +1,1 @@
+# VeliqClub-corporate
