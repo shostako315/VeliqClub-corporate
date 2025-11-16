@@ -1130,3 +1130,34 @@ border-radius: 24px;
   border: none !important;
   box-shadow: none !important;
 }
+
+
+/* =========================
+   ここからPC用レイアウト
+   （画面幅が1024px以上のときだけ適用）
+   ========================= */
+@media (min-width: 1024px) {
+
+  /* 例：ページ全体の横幅を広げる */
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* 例：プランカードを3列にする */
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  /* 例：下の注意書きと次セクションの余白調整 */
+  .notes-section {
+    margin-bottom: 24px;
+  }
+
+  .conditions-section h2 {
+    margin-top: 16px;
+  }
+}
