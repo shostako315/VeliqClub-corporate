@@ -11,76 +11,22 @@ html{
   scroll-behavior:smooth;
 }
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  /* ライトボックス ------------------ */
-  const targets = document.querySelectorAll('.js-lightbox');
-  if (targets.length) {
-    const backdrop = document.createElement('div');
-    backdrop.className = 'lightbox-backdrop';
-    const img = document.createElement('img');
-    backdrop.appendChild(img);
-    document.body.appendChild(backdrop);
-
-    targets.forEach(function (el) {
-      el.style.cursor = 'zoom-in';
-      el.addEventListener('click', function () {
-        img.src = el.src;
-        img.alt = el.alt || '';
-        backdrop.classList.add('is-open');
-      });
-    });
-
-    backdrop.addEventListener('click', function () {
-      backdrop.classList.remove('is-open');
-    });
-  }
-
-  /* スクロール時のふわっと表示 ------------------ */
-  const fadeTargets = document.querySelectorAll(
-    '.hero-inner, .section, .service-card, .plan, .orch-photos figure, .md-block, .faq details'
-  );
-
-  fadeTargets.forEach(function (el) {
-    el.classList.add('fadeup');
-  });
-
-  const io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.2 });
-
-  fadeTargets.forEach(function (el) {
-    io.observe(el);
-  });
-});
-</script>
-
-
-
 body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",system-ui,sans-serif;
-  background:#050509;
+  background:#020207;
   color:#f5f5f7;
   line-height:1.7;
 }
 
-/* Links */
 a{
   color:inherit;
   text-decoration:none;
 }
-
 a:hover{
   text-decoration:underline;
 }
 
-/* Typography */
 h1,h2,h3,h4{
   font-family:"Playfair Display","Times New Roman",serif;
   font-weight:600;
@@ -94,16 +40,28 @@ p{
   color:#d1d5db;
 }
 
-/* Layout */
+/* コンテナ */
 .container{
-  max-width:1200px;   /* 好きなら 1280px とかにしてもOK */
+  max-width:1200px;
   margin:0 auto;
   padding:0 24px;
 }
+
+/* 画像のはみ出し禁止 */
+img{
+  max-width:100%;
+  height:auto;
+}
+
+/* 横スクロール強制OFF（中のコンポーネントで必要なところだけ overflow-x:auto する） */
+html,body{
+  overflow-x:hidden;
+  max-width:100%;
+}
+
 /* =========================
    Header
 ========================= */
-
 .site-header{
   position:sticky;
   top:0;
@@ -112,15 +70,12 @@ p{
   background:rgba(5,5,12,.88);
   border-bottom:1px solid rgba(184,154,63,.25);
 }
-
 .header-wrap{
   display:flex;
   align-items:center;
   justify-content:space-between;
   height:64px;
 }
-
-/* Brand */
 .brand{
   font-family:"Playfair Display","Times New Roman",serif;
   font-size:1.1rem;
@@ -130,21 +85,19 @@ p{
   padding:6px 0;
 }
 
-/* Nav */
+/* ナビ */
 .nav{
   display:flex;
   align-items:center;
   gap:20px;
   font-size:.9rem;
 }
-
 .nav a{
   padding:6px 0;
   color:#e5e7eb;
   position:relative;
   white-space:nowrap;
 }
-
 .nav a::after{
   content:"";
   position:absolute;
@@ -155,17 +108,14 @@ p{
   background:#b89a3f;
   transition:width .18s ease-out;
 }
-
 .nav a:hover::after{
   width:100%;
 }
-
-/* Buttons in nav */
 .nav .btn{
   text-decoration:none;
 }
 
-/* Hamburger */
+/* ハンバーガー */
 .nav-toggle{
   display:none;
   background:none;
@@ -173,7 +123,6 @@ p{
   padding:4px;
   cursor:pointer;
 }
-
 .nav-toggle span{
   display:block;
   width:20px;
@@ -186,7 +135,6 @@ p{
 /* =========================
    Buttons
 ========================= */
-
 .btn{
   display:inline-flex;
   align-items:center;
@@ -198,77 +146,88 @@ p{
   font-weight:500;
   cursor:pointer;
   text-decoration:none;
-  transition:background .15s ease-out, color .15s ease-out, border-color .15s ease-out, transform .1s;
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    background-color .25s ease,
+    border-color .25s ease,
+    color .25s ease;
+  will-change:transform,box-shadow;
 }
-
 .btn-primary{
   background:#b89a3f;
   border-color:#b89a3f;
   color:#070711;
 }
-
 .btn-primary:hover{
   background:#c7ad57;
   border-color:#c7ad57;
   text-decoration:none;
-  transform:translateY(-1px);
+  transform:translateY(-2px);
+  box-shadow:0 14px 32px rgba(0,0,0,.45);
 }
-
 .btn-ghost{
   background:transparent;
   border-color:rgba(184,154,63,.7);
   color:#f5f5f7;
 }
-
 .btn-ghost:hover{
   background:rgba(184,154,63,.12);
   text-decoration:none;
+  transform:translateY(-2px);
+  box-shadow:0 14px 32px rgba(0,0,0,.45);
 }
-
 .btn-lg{
   padding:10px 22px;
   font-size:1rem;
+}
+.btn-primary:active,
+.btn-ghost:active{
+  transform:translateY(0);
+  box-shadow:0 6px 16px rgba(0,0,0,.35);
 }
 
 /* =========================
    Hero
 ========================= */
-
 .hero{
   position:relative;
   padding:80px 0 72px;
   overflow:hidden;
   background:radial-gradient(circle at top left,#22263a 0,#050509 52%,#010104 100%);
 }
-
 .hero::before{
   content:"";
   position:absolute;
-  inset:0;
+  inset:-20%;
   background:
-    radial-gradient(circle at 10% 0%, rgba(184,154,63,.12) 0, transparent 45%),
-    radial-gradient(circle at 80% 100%, rgba(148,163,184,.18) 0, transparent 52%);
-  opacity:.9;
+    radial-gradient(circle at 0% 0%, rgba(255,255,255,0.08), transparent 55%),
+    radial-gradient(circle at 100% 100%, rgba(255,215,128,0.12), transparent 60%);
+  opacity:0.7;
+  mix-blend-mode:screen;
   pointer-events:none;
+  animation:heroGlow 14s ease-in-out infinite alternate;
 }
-
+@keyframes heroGlow{
+  0%{transform:translate3d(-8%,-4%,0) scale(1);opacity:.55;}
+  50%{transform:translate3d(4%,2%,0) scale(1.05);opacity:.8;}
+  100%{transform:translate3d(2%,6%,0) scale(1.02);opacity:.6;}
+}
 .hero-inner{
   position:relative;
   max-width:720px;
+  z-index:1;
 }
-
 .hero h1{
   font-size:2.2rem;
   line-height:1.3;
   margin-bottom:.7em;
 }
-
 .hero .lead{
   font-size:.98rem;
   color:#e5e7eb;
   max-width:640px;
 }
-
 .hero-ctas{
   display:flex;
   flex-wrap:wrap;
@@ -279,21 +238,30 @@ p{
 /* =========================
    Sections
 ========================= */
-
 .section{
   padding:64px 0;
-  background:#050509;
+  background:#020207;
 }
-
 .section.alt{
-  background:#080814;
+  background:#020207;
 }
-
 .ttl{
   font-size:1.4rem;
   margin-bottom:24px;
+  position:relative;
+  padding-bottom:6px;
 }
-
+.ttl::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:60px;
+  height:1px;
+  background:linear-gradient(to right,
+    rgba(184,154,63,.9),
+    rgba(184,154,63,.2));
+}
 .section .sub{
   font-size:.9rem;
   color:#9ca3af;
@@ -301,31 +269,53 @@ p{
 }
 
 /* =========================
-   Cards & Grids
+   Cards & Plans
 ========================= */
-
 .cards{
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
   gap:18px;
 }
-
 .service-card{
-  background:rgba(15,23,42,.92);
-  border:1px solid rgba(148,163,184,.35);
+  background:rgba(5,5,10,.96);
+  border:1px solid rgba(75,85,99,.65);
   border-radius:14px;
   padding:18px 18px 16px;
   box-shadow:0 18px 40px rgba(15,23,42,.45);
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    background .25s ease,
+    border-color .25s ease;
+  will-change:transform,box-shadow;
 }
-
+.service-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 18px 40px rgba(0,0,0,0.55);
+  background:radial-gradient(circle at top left,
+            rgba(184,154,63,0.18), rgba(11,14,24,1));
+  border-color:rgba(232,217,162,0.4);
+}
 .service-card h3{
   font-size:1.02rem;
   margin-bottom:.4em;
 }
-
 .service-card p,
 .service-card li{
   font-size:.9rem;
+}
+
+/* ご利用シーン／条件の差し色 */
+#use .service-card{
+  background:radial-gradient(circle at top left,
+            rgba(184,154,63,.18),
+            rgba(15,23,42,.96));
+  border-color:rgba(148,163,184,.55);
+}
+#details .service-card{
+  background:rgba(8,12,24,.96);
+  border-color:rgba(55,65,81,.85);
+  box-shadow:0 12px 24px rgba(15,23,42,.35);
 }
 
 /* Plans */
@@ -334,13 +324,11 @@ p{
   grid-template-columns:repeat(3,minmax(0,1fr));
   gap:18px;
 }
-
 .plan{
   position:relative;
   border-color:rgba(184,154,63,.6);
   background:linear-gradient(145deg,rgba(15,23,42,.96),rgba(15,23,42,.94));
 }
-
 .plan-kicker{
   font-size:.9rem;
   text-transform:uppercase;
@@ -348,17 +336,16 @@ p{
   color:#e5e7eb;
   margin-bottom:.6em;
 }
-
 .list{
   margin:0 0 1.5em;
   padding-left:18px;
 }
-
 .list li{
   font-size:.9rem;
   margin-bottom:.25em;
   color:#d1d5db;
 }
+.list-tight li{ margin-bottom:4px; }
 
 .price-button{
   display:inline-flex;
@@ -372,523 +359,55 @@ p{
   background:transparent;
   text-decoration:none;
 }
-
 .price-button:hover{
   background:rgba(184,154,63,.18);
   text-decoration:none;
 }
 
-.notes{
-  margin-top:18px;
-  font-size:.8rem;
-  color:#9ca3af;
-}
-
-/* Flow */
-.flow{
-  list-style:none;
-  padding:0;
-  margin:0;
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:18px;
-}
-
-.flow li{
-  background:rgba(15,23,42,.92);
-  border-radius:14px;
-  border:1px solid rgba(148,163,184,.4);
-  padding:18px 16px 16px;
-  font-size:.9rem;
-}
-
-.flow li span{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:24px;
-  height:24px;
-  border-radius:999px;
-  background:#b89a3f;
-  color:#050509;
-  font-size:.78rem;
-  font-weight:600;
-  margin-bottom:8px;
-}
-
 /* =========================
-   FAQ
+   Orchestra + MD
 ========================= */
-
-.faq{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-details{
-  border-radius:12px;
-  border:1px solid rgba(148,163,184,.4);
-  background:rgba(15,23,42,.96);
-  padding:8px 14px;
-}
-
-details[open]{
-  border-color:rgba(184,154,63,.8);
-}
-
-details summary{
-  list-style:none;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-}
-
-details summary::-webkit-details-marker{
-  display:none;
-}
-
-details summary span{
-  font-size:.9rem;
-  color:#e5e7eb;
-}
-
-details p{
-  margin-top:6px;
-  font-size:.86rem;
-}
-
-/* toggle icon inside summary (already SVG) */
-details summary .toggle-icon{
-  border:none;
-  background:none;
-  padding:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#9ca3af;
-}
-
-/* =========================
-   Contact & Iframe
-========================= */
-
-#contact{
-  background:radial-gradient(circle at top,#111827 0,#050509 52%,#010104 100%);
-}
-
-#contact .ttl{
-  text-align:left;
-}
-
-.iframe-wrapper iframe{
-  border-radius:12px;
-  background:#0b0f19;
-}
-
-/* =========================
-   Company Section
-========================= */
-
-#company .service-card p{
-  font-size:.88rem;
-}
-
-/* =========================
-   Footer
-========================= */
-
-/* Footer */
-.site-footer{
-  padding:40px 0 28px;
-  background:#050509;
-  border-top:1px solid rgba(184,154,63,.25);
-}
-
-.footer-inner{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-  gap:18px;
-}
-
-.footer-brand{
-  font-family:"Playfair Display","Times New Roman",serif;
-  letter-spacing:.16em;
-  font-size:.95rem;
-  text-transform:uppercase;
-  color:#f5f5f7;
-}
-
-.footer-nav{
-  display:flex;
-  gap:22px;
-  flex-wrap:wrap;
-}
-
-.footer-nav a{
-  font-size:.82rem;
-  color:#d1d5db;
-  text-decoration:none;
-}
-
-.footer-nav a:hover{
-  text-decoration:underline;
-  color:#fff;
-}
-
-.copy{
-  font-size:.78rem;
-  color:#9ca3af;
-}
-
-/* =========================
-   Responsive
-========================= */
-
-@media (max-width:960px){
-  .cards{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
-  .plans{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
-  .flow{
-    grid-template-columns:1fr;
-  }
-}
-
-@media (max-width:720px){
-  .header-wrap{
-    height:56px;
-  }
-
-  .nav-toggle{
-    display:inline-flex;
-  }
-
-  .nav{
-    position:fixed;
-    inset:56px 0 auto 0;
-    background:rgba(5,5,12,.98);
-    flex-direction:column;
-    padding:12px 16px 16px;
-    gap:10px;
-    border-bottom:1px solid rgba(55,65,81,.8);
-    display:none; /* default hidden */
-  }
-
-  /* JSでaria-expanded="true"に切り替わる想定 */
-  .nav-toggle[aria-expanded="true"] + .nav{
-    display:flex;
-  }
-
-  .hero{
-    padding:64px 0 56px;
-  }
-
-  .hero h1{
-    font-size:1.7rem;
-  }
-
-  .hero-ctas{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-
-  .cards{
-    grid-template-columns:1fr;
-  }
-
-  .plans{
-    grid-template-columns:1fr;
-  }
-
-  .section{
-    padding:48px 0;
-  }
-
-  .footer-inner{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-}
-
-/* 「実施にあたってのご準備・条件」セクションの余白調整 */
-#details .service-card{
-  margin-top:18px;          /* 各カードの上に少し余白 */
-}
-
-#details .service-card:first-of-type{
-  margin-top:28px;          /* 見出しと最初のカードの間を少し広めに */
-}
-
-#use .service-card{
-  background:radial-gradient(circle at top left,
-            rgba(184,154,63,.18),
-            rgba(15,23,42,.96));
-  border-color:rgba(148,163,184,.55);
-}
-
-#details .service-card{
-  background:rgba(8,12,24,.96);
-  border-color:rgba(55,65,81,.85);
-  box-shadow:0 12px 24px rgba(15,23,42,.35);
-}
-
-#flow .flow{
-  position:relative;
-}
-
-#flow .flow::before{
-  content:"";
-  position:absolute;
-  left:16px;
-  top:0;
-  bottom:0;
-  width:2px;
-  background:linear-gradient(to bottom,
-             rgba(184,154,63,.8),
-             rgba(184,154,63,.15));
-}
-
-#flow .flow li{
-  position:relative;
-  margin-left:24px;
-  background:rgba(11,15,27,.96);
-  border-radius:14px;
-}
-
-#flow .flow li span{
-  position:absolute;
-  left:-32px;
-  top:16px;
-}
-
-
-.section .ttl{
-  position:relative;
-  padding-bottom:6px;
-  margin-bottom:20px;
-}
-
-.section .ttl::after{
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:0;
-  width:42px;
-  height:1px;
-  background:linear-gradient(to right,
-             rgba(184,154,63,.85),
-             rgba(184,154,63,.15));
-}
-
-
-
-
-/* ページ全体をより黒っぽく */
-body{
-  background:#020207;
-}
-
-.section,
-.section.alt{
-  background:#020207;
-}
-
-/* 共通カードを少しだけ黒寄り＆フラットに */
-.service-card{
-  background:rgba(5,5,10,.96);
-  border-color:rgba(75,85,99,.65);
-}
-
-
-
-/* ご依頼の流れ：タイムライン風・ノーボックス */
-#flow .flow{
-  position:relative;
-  padding-left:8px;
-}
-
-/* 左の縦ライン（上から下につながる） */
-#flow .flow::before{
-  content:"";
-  position:absolute;
-  left:18px;
-  top:0;
-  bottom:0;
-  width:2px;
-  background:linear-gradient(
-    to bottom,
-    rgba(184,154,63,.9),
-    rgba(184,154,63,.15)
-  );
-}
-
-/* 各STEPの行 */
-#flow .flow li{
-  position:relative;
-  margin:0 0 12px 0;
-  padding:10px 8px 14px 46px; /* ← 左側の余白を広く */
-  background:transparent;     /* 箱をやめる */
-  border:none;
-  font-size:.9rem;
-}
-
-/* 丸番号：少し右に寄せて、文字との距離を作る */
-#flow .flow li span{
-  position:absolute;
-  left:10px;
-  top:10px;
-}
-
-/* 各行の下にうすい区切り線（最後はなし） */
-#flow .flow li:not(:last-child)::after{
-  content:"";
-  position:absolute;
-  left:46px;
-  right:0;
-  bottom:0;
-  height:1px;
-  background:rgba(55,65,81,.7);
-}
-
-
-
-
-.section .ttl{
-  position:relative;
-  padding-bottom:6px;
-  margin-bottom:20px;
-}
-
-.section .ttl::after{
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:0;
-  width:60px;
-  height:1px;
-  background:linear-gradient(
-    to right,
-    rgba(184,154,63,.9),
-    rgba(184,154,63,.2)
-  );
-}
-
-
-/* Orchestra section */
 .orchestra-inner{
   display:flex;
   gap:40px;
   align-items:flex-start;
   flex-wrap:wrap;
 }
-
 .orch-text{
   flex:1 1 320px;
 }
 
+/* 写真エリア：スマホは横スクロール、PCは横並び */
 .orch-photos{
   flex:1 1 260px;
   display:flex;
-  flex-direction:column;
   gap:12px;
+  overflow-x:auto;
+  padding:4px 0 10px;
+  scroll-snap-type:x mandatory;
 }
-
-.orch-main img,
-.orch-sub img{
+.orch-photos::-webkit-scrollbar{
+  height:6px;
+}
+.orch-photos::-webkit-scrollbar-thumb{
+  background:rgba(148,163,184,.6);
+  border-radius:999px;
+}
+.orch-photos figure{
+  flex:0 0 82%;
+  margin:0;
+  scroll-snap-align:center;
+}
+.orch-photos img{
   width:100%;
   display:block;
   border-radius:18px;
   object-fit:cover;
   box-shadow:0 18px 36px rgba(0,0,0,.55);
+  cursor:zoom-in;
 }
 
-/* サブ写真を縦に2枚並べる */
-.orch-sub{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:12px;
-}
-
-.kicker{
-  font-size:.8rem;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:#e5e7eb;
-  margin-bottom:6px;
-}
-
-/* 指揮者ブロック */
-.md-block{
-  margin-top:18px;
-  padding:14px 16px;
-  border-radius:14px;
-  border:1px solid rgba(148,163,184,.55);
-  background:rgba(5,5,10,.9);
-}
-
-.md-label{
-  font-size:.78rem;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  color:#9ca3af;
-  margin-bottom:4px;
-}
-
-.md-name{
-  font-family:"Playfair Display","Times New Roman",serif;
-  font-size:1.05rem;
-  letter-spacing:.08em;
-  margin-bottom:4px;
-}
-
-.md-note{
-  font-size:.85rem;
-  color:#d1d5db;
-}
-
-/* 箇条書きを少し詰めて上品に */
-.list-tight li{
-  margin-bottom:4px;
-}
-
-@media (max-width:768px){
-  .orchestra-inner{
-    flex-direction:column;
-  }
-  .orch-photos{
-    order:-1; /* スマホでは写真を先に見せる */
-  }
-}
-
-
-/* ダウンロードページ用の簡易ヒーロー */
-.hero-simple .ttl{
-  font-family:"Playfair Display",serif;
-  font-size:1.8rem;
-  letter-spacing:.08em;
-}
-
-.hero-simple .lead{
-  margin-top:8px;
-  color:#e5e7eb;
-  font-size:.95rem;
-  line-height:1.7;
-}
-
-.form-container{
-  background:rgba(255,255,255,0.02);
-  padding:20px;
-  border-radius:14px;
-  border:1px solid rgba(255,255,255,0.08);
-  box-shadow:0 10px 32px rgba(0,0,0,.4);
-}
-/* 音楽監督セクション（写真＋テキスト横並び） */
+/* 音楽監督エリア */
 .md-area{
   display:flex;
   gap:28px;
@@ -896,7 +415,6 @@ body{
   margin-top:28px;
   flex-wrap:wrap;
 }
-
 .md-photo img{
   width:230px;
   max-width:100%;
@@ -904,8 +422,6 @@ body{
   box-shadow:0 18px 40px rgba(0,0,0,.45);
   display:block;
 }
-
-/* 既存 md-block を“カード”っぽく */
 .md-block{
   flex:1;
   min-width:260px;
@@ -914,7 +430,6 @@ body{
   padding:20px 22px;
   border:1px solid rgba(248,230,180,.18);
 }
-
 .md-label{
   font-size:.85rem;
   letter-spacing:.16em;
@@ -922,408 +437,198 @@ body{
   color:rgba(248,230,180,.76);
   margin-bottom:6px;
 }
-
 .md-name{
   font-family:'Playfair Display',serif;
   font-size:1.3rem;
   margin-bottom:10px;
 }
-
 .md-note{
   line-height:1.8;
 }
 
-/* === 音楽監督写真の調整 === */
-.md-photo {
-  width: 100%;
-  max-width: 420px;       /* 横幅の最大サイズ */
-  border-radius: 18px;    /* 角丸 */
-  display: block;
-  margin: 24px auto;      /* 中央寄せ */
-  box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+/* =========================
+   Flow
+========================= */
+.flow{
+  list-style:none;
+  padding:0 0 0 8px;
+  margin:0;
 }
-
-margin: 32px auto;
-
-border-radius: 24px;
-
-
-/* ==== ボタンの高級ホバー演出 ==== */
-.btn {
-  transition:
-    transform .25s ease,
-    box-shadow .25s ease,
-    background-color .25s ease,
-    border-color .25s ease,
-    color .25s ease;
-  will-change: transform, box-shadow;
+.flow li{
+  position:relative;
+  padding:10px 8px 14px 56px;
+  margin-bottom:26px;
+  line-height:1.7;
+  font-size:.9rem;
+  transition:transform .25s ease,opacity .25s ease;
 }
-
-.btn-primary:hover,
-.btn-ghost:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45);
+.flow li span{
+  position:absolute;
+  left:12px;
+  top:10px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:32px;
+  height:32px;
+  border-radius:999px;
+  background:#b89a3f;
+  color:#0b0d17;
+  font-weight:600;
+  box-shadow:0 0 0 1px rgba(255,255,255,0.12);
 }
-
-.btn-primary:active,
-.btn-ghost:active {
-  transform: translateY(0);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.35);
-}
-
-/* ==== Hero のさりげないグラデーションアニメ ==== */
-.hero {
-  position: relative;
-  overflow: hidden;
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: -20%;
-  background:
-    radial-gradient(circle at 0% 0%, rgba(255,255,255,0.08), transparent 55%),
-    radial-gradient(circle at 100% 100%, rgba(255,215,128,0.12), transparent 60%);
-  opacity: 0.7;
-  mix-blend-mode: screen;
-  pointer-events: none;
-  animation: heroGlow 14s ease-in-out infinite alternate;
-}
-
-@keyframes heroGlow {
-  0%   { transform: translate3d(-8%, -4%, 0) scale(1);   opacity: .55; }
-  50%  { transform: translate3d(4%, 2%, 0)    scale(1.05); opacity: .8; }
-  100% { transform: translate3d(2%, 6%, 0)    scale(1.02); opacity: .6; }
-}
-
-/* テキストは上に */
-.hero-inner {
-  position: relative;
-  z-index: 1;
-}
-
-
-/* ==== カード共通のホバー演出 ==== */
-.service-card,
-.plan {
-  transition:
-    transform .25s ease,
-    box-shadow .25s ease,
-    background .25s ease,
-    border-color .25s ease;
-  will-change: transform, box-shadow;
-}
-
-.service-card:hover,
-.plan:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.55);
-  background: radial-gradient(circle at top left,
-            rgba(184,154,63,0.18), rgba(11,14,24,1));
-  border-color: rgba(232,217,162,0.4);
-}
-
-/* ==== Flow セクションのアニメ感 ==== */
-.flow li {
-  position: relative;
-  padding-left: 56px;
-  margin-bottom: 26px;
-  line-height: 1.7;
-  transition: transform .25s ease, opacity .25s ease;
-}
-
-.flow li span {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 999px;
-  background: #b89a3f;
-  color: #0b0d17;
-  font-weight: 600;
-  margin-right: 8px;
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.12);
-}
-
-/* 左の縦ライン（既存があれば上書きせず追加風味） */
-.flow li::before {
-  content: "";
-  position: absolute;
-  left: 22px;
-  top: 0;
-  bottom: -18px;
-  width: 1px;
-  background: linear-gradient(to bottom,
+.flow li::before{
+  content:"";
+  position:absolute;
+  left:28px;
+  top:0;
+  bottom:-18px;
+  width:1px;
+  background:linear-gradient(to bottom,
     rgba(184,154,63,0.4),
     rgba(184,154,63,0));
-  opacity: .9;
+  opacity:.9;
+}
+.flow li:not(:last-child)::after{
+  content:"";
+  position:absolute;
+  left:56px;
+  right:0;
+  bottom:0;
+  height:1px;
+  background:rgba(55,65,81,.7);
+}
+.flow li:hover{
+  transform:translateX(4px);
+  opacity:1;
 }
 
-/* ホバーで少し浮く */
-.flow li:hover {
-  transform: translateX(4px);
-  opacity: 1;
+/* =========================
+   FAQ
+========================= */
+.faq{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
 }
-
-/* ==== オーケストラ写真のホバーズーム ==== */
-.orch-photos img,
-.md-photo {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 24px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-  transform: translateZ(0);
-  transition:
-    transform .35s ease,
-    box-shadow .35s ease,
-    filter .35s ease;
-}
-
-.orch-photos img:hover,
-.md-photo:hover {
-  transform: scale(1.02);
-  box-shadow: 0 26px 70px rgba(0,0,0,0.75);
-  filter: saturate(1.05) contrast(1.03);
-}
-
-
-
-/* ==== FAQ アコーディオン開閉アニメ ==== */
-.faq details {
-  margin-bottom: 10px;
-  padding: 14px 18px;
-  border-radius: 16px;
-  background: radial-gradient(circle at top left,
+.faq details{
+  margin-bottom:10px;
+  padding:14px 18px;
+  border-radius:16px;
+  background:radial-gradient(circle at top left,
       rgba(184,154,63,0.18), rgba(10,12,22,1));
-  border: 1px solid rgba(230,233,238,0.12);
+  border:1px solid rgba(230,233,238,0.12);
   transition:
     background .25s ease,
     border-color .25s ease,
     box-shadow .25s ease;
 }
-
-.faq details[open] {
-  border-color: rgba(232,217,162,0.55);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.55);
+.faq details[open]{
+  border-color:rgba(232,217,162,0.55);
+  box-shadow:0 16px 40px rgba(0,0,0,0.55);
 }
-
-.faq details p {
-  margin-top: 10px;
-  opacity: 0;
-  max-height: 0;
-  overflow: hidden;
-  transition: opacity .22s ease, max-height .26s ease;
+.faq details summary{
+  list-style:none;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
 }
-
-.faq details[open] p {
-  opacity: 1;
-  max-height: 260px; /* 1問の文章量的に十分な高さ */
+.faq details summary::-webkit-details-marker{
+  display:none;
 }
-
-
-/* ==== 資料ダウンロードセクションを少しだけ強調 ==== */
-.cta-download {
-  position: relative;
-  overflow: hidden;
+.faq details summary span{
+  font-size:.9rem;
+  color:#e5e7eb;
 }
-
-.cta-download::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 0% 50%,
-      rgba(184,154,63,0.15), transparent 60%);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .5s ease;
+.faq details p{
+  margin-top:10px;
+  font-size:.86rem;
+  opacity:0;
+  max-height:0;
+  overflow:hidden;
+  transition:opacity .22s ease,max-height .26s ease;
 }
-
-.cta-download-inner {
-  position: relative;
-  z-index: 1;
-  transition: transform .35s ease;
+.faq details[open] p{
+  opacity:1;
+  max-height:260px;
 }
-
-.cta-download:hover::before {
-  opacity: 1;
-}
-
-.cta-download:hover .cta-download-inner {
-  transform: translateY(-2px);
-}
-
-
-/* ───────── ヘッダー直下の謎の横線対策 ───────── */
-
-/* ヘッダーに仕込まれている装飾ラインを無効化 */
-.site-header::before,
-.site-header::after,
-.header-wrap::before,
-.header-wrap::after {
-  content: none !important;
-  display: none !important;
-  border: none !important;
-  box-shadow: none !important;
-}
-
-/* ヒーローセクション側に線がある場合も念のためカット */
-.hero {
-  border-top: none !important;
-}
-
-.hero::before,
-.hero::after {
-  content: none !important;
-  display: none !important;
-  border: none !important;
-  box-shadow: none !important;
-}
-
 
 /* =========================
-   ここからPC用レイアウト
-   （画面幅が1024px以上のときだけ適用）
-   ========================= */
-@media (min-width: 1024px) {
-
-  /* 例：ページ全体の横幅を広げる */
-  .container {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 0 32px;
-  }
-
-  /* 例：プランカードを3列にする */
-  .plans-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 32px;
-  }
-
-
-/* 写真の角丸と影を全解除（より高級感のあるフルサイズ仕様へ） */
-.orch-photos img,
-.orch-main img,
-.orch-sub img,
-.md-photo img,
-figure img {
-  border-radius: 0 !important;
-  box-shadow: none !important;
+   Download CTA
+========================= */
+#download{
+  background:radial-gradient(circle at top,#111827 0,#050509 52%,#010104 100%);
+}
+.cta-download{
+  position:relative;
+  overflow:hidden;
+}
+.cta-download::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 0% 50%,
+      rgba(184,154,63,0.15), transparent 60%);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .5s ease;
+}
+.cta-download-inner{
+  position:relative;
+  z-index:1;
+  transition:transform .35s ease;
+}
+.cta-download:hover::before{
+  opacity:1;
+}
+.cta-download:hover .cta-download-inner{
+  transform:translateY(-2px);
 }
 
-
-   .orch-photos figure,
-.orch-sub figure,
-.orch-main {
-  padding: 0 !important;
-  margin: 0 auto !important;
-  width: 100% !important;
+/* =========================
+   Footer
+========================= */
+.site-footer{
+  padding:40px 0 28px;
+  background:#050509;
+  border-top:1px solid rgba(184,154,63,.25);
 }
-
-
-
-   .orch-photos img,
-.orch-sub img,
-.orch-main img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
-
-
-   .orch-photos {
-  display: block;
-}
-
-.orch-sub {
-  display: flex;
-  gap: 12px;
-}
-
-.orch-sub figure {
-  flex: 1;
-}
-
-   /* 音楽監督ブロックのレイアウト調整 */
-.md-area{
+.footer-inner{
   display:flex;
   flex-direction:column;
-  gap:24px;
-  margin-top:28px;
+  align-items:flex-start;
+  gap:18px;
 }
-
-.md-photo{
-  margin:0;
+.footer-brand{
+  font-family:"Playfair Display","Times New Roman",serif;
+  letter-spacing:.16em;
+  font-size:.95rem;
+  text-transform:uppercase;
+  color:#f5f5f7;
 }
-
-.md-photo img{
-  display:block;
-  width:100%;
-  max-width:320px;
-  border-radius:0;        /* 角丸なしでクールに */
-  object-fit:cover;
-}
-
-/* PC では横並びにする */
-@media (min-width:960px){
-  .md-area{
-    flex-direction:row;
-    align-items:center;
-  }
-  .md-photo{
-    flex:0 0 320px;
-  }
-  .md-block{
-    flex:1;
-  }
-}
-
-
-   /* 写真エリア：横スクロール＋フルサイズ感 */
-.orch-photos{
+.footer-nav{
   display:flex;
-  gap:16px;
-  overflow-x:auto;
-  padding:4px 0 10px;
-  scroll-snap-type:x mandatory;
+  gap:22px;
+  flex-wrap:wrap;
+}
+.footer-nav a{
+  font-size:.82rem;
+  color:#d1d5db;
+}
+.footer-nav a:hover{
+  text-decoration:underline;
+  color:#fff;
+}
+.copy{
+  font-size:.78rem;
+  color:#9ca3af;
 }
 
-.orch-photos::-webkit-scrollbar{
-  height:6px;
-}
-.orch-photos::-webkit-scrollbar-thumb{
-  background:rgba(148,163,184,.6);
-  border-radius:999px;
-}
-
-.orch-photos figure{
-  flex:0 0 82%;
-  margin:0;
-  scroll-snap-align:center;
-}
-
-.orch-photos img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  border-radius:0;
-  box-shadow:none;
-}
-
-/* PCでは3枚くらい並ぶイメージ */
-@media (min-width:960px){
-  .orch-photos{
-    overflow-x:hidden;
-  }
-  .orch-photos figure{
-    flex:1 1 0;
-  }
-}
-]
-/* 画像拡大用ライトボックス */
+/* =========================
+   ライトボックス
+========================= */
 .lightbox-backdrop{
   position:fixed;
   inset:0;
@@ -1336,12 +641,10 @@ figure img {
   transition:opacity .25s ease;
   z-index:9999;
 }
-
 .lightbox-backdrop.is-open{
   opacity:1;
   pointer-events:auto;
 }
-
 .lightbox-backdrop img{
   max-width:92vw;
   max-height:92vh;
@@ -1349,132 +652,126 @@ figure img {
   box-shadow:0 24px 70px rgba(0,0,0,.8);
 }
 
-   /* フェードアップ共通 */
+/* =========================
+   フェードアップ（スクロール時）
+========================= */
 .fadeup{
   opacity:0;
   transform:translateY(18px);
-  transition:
-    opacity .6s ease-out,
-    transform .6s ease-out;
+  transition:opacity .6s ease-out,transform .6s ease-out;
   will-change:opacity,transform;
 }
-
 .fadeup.is-visible{
   opacity:1;
   transform:none;
 }
 
-
-   /* =========================
-   右下固定「資料請求」CTA
+/* =========================
+   右下固定 CTA
 ========================= */
-
-.floating-cta {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-  z-index: 999;
-  
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 12px 22px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: .04em;
-
-  background: #b89a3f;
-  color: #0b0d17;
-  border-radius: 999px;
-  box-shadow: 0 10px 28px rgba(0,0,0,0.45);
-  border: 1px solid rgba(248,230,180,0.45);
-
-  text-decoration: none;
-  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+.floating-cta{
+  position:fixed;
+  right:16px;
+  bottom:env(safe-area-inset-bottom,16px);
+  z-index:999;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:12px 18px;
+  font-size:.9rem;
+  font-weight:600;
+  letter-spacing:.04em;
+  background:#b89a3f;
+  color:#0b0d17;
+  border-radius:999px;
+  box-shadow:0 10px 28px rgba(0,0,0,.45);
+  border:1px solid rgba(248,230,180,0.45);
+  text-decoration:none;
+  max-width:calc(100vw - 32px);
+}
+.floating-cta:hover{
+  background:#c9b063;
+  transform:translateY(-3px);
+  box-shadow:0 18px 36px rgba(0,0,0,0.55);
+}
+.floating-cta:active{
+  transform:translateY(0);
+  box-shadow:0 8px 20px rgba(0,0,0,0.45);
 }
 
-.floating-cta:hover {
-  background: #c9b063;
-  transform: translateY(-3px);
-  box-shadow: 0 18px 36px rgba(0,0,0,0.55);
-  text-decoration: none;
+/* =========================
+   Responsive
+========================= */
+@media (max-width:960px){
+  .cards{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .plans{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
 }
+@media (max-width:768px){
+  .header-wrap{ height:56px; }
+  .nav-toggle{ display:inline-flex; }
+  .nav{
+    position:fixed;
+    inset:56px 0 auto 0;
+    background:rgba(5,5,12,.98);
+    flex-direction:column;
+    padding:12px 16px 16px;
+    gap:10px;
+    border-bottom:1px solid rgba(55,65,81,.8);
+    display:none;
+  }
+  .nav-toggle[aria-expanded="true"] + .nav{
+    display:flex;
+  }
 
-.floating-cta:active {
-  transform: translateY(0);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.45);
-}
+  .hero{
+    padding:64px 0 56px;
+  }
+  .hero h1{
+    font-size:1.7rem;
+  }
+  .hero-ctas{
+    flex-direction:column;
+    align-items:flex-start;
+  }
 
-/* スマホ最適化 */
-@media (max-width: 720px) {
-  .floating-cta {
-    right: 16px;
-    bottom: 16px;
-    padding: 10px 18px;
-    font-size: 0.88rem;
+  .cards{
+    grid-template-columns:1fr;
+  }
+  .plans{
+    grid-template-columns:1fr;
+  }
+  .section{
+    padding:48px 0;
+  }
+  .footer-inner{
+    flex-direction:column;
+  }
+
+  .orchestra-inner{
+    flex-direction:column;
+  }
+  .orch-photos{
+    order:-1;
   }
 }
 
-
-html, body {
-  overflow-x: hidden !important;
-  max-width: 100% !important;
-}
-
-
-   img {
-  max-width: 100% !important;
-  height: auto !important;
-}
-
-
-   @media (max-width: 768px) {
-
-  .orch-photos,
-  .orch-sub,
-  .orch-main {
-    display: block !important;
-    width: 100% !important;
+/* PC 少しだけ横幅広め＆写真レイアウト変更 */
+@media (min-width:1024px){
+  .container{
+    max-width:1200px;
+    padding:0 32px;
   }
-
-  .orch-sub figure {
-    width: 100% !important;
+  .orch-photos{
+    overflow-x:hidden;
   }
-
-  .orch-photos img,
-  .orch-sub img,
-  .orch-main img {
-    width: 100% !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    transform: none !important;
+  .orch-photos figure{
+    flex:1 1 0;
+  }
+  .md-area{
+    flex-wrap:nowrap;
   }
 }
-
-
-
-   .floating-cta {
-  position: fixed;
-  right: 16px;
-  bottom: env(safe-area-inset-bottom, 16px);
-  z-index: 999;
-  display: inline-flex;
-  padding: 12px 18px;
-  background: #b89a3f;
-  border-radius: 999px;
-  color: #000;
-  font-weight: 600;
-  font-size: .9rem;
-  box-shadow: 0 10px 28px rgba(0,0,0,.45);
-  text-decoration: none;
-  max-width: calc(100vw - 32px);
-}
-
-
-
-   
-
-   
-
-   
