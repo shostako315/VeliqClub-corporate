@@ -1152,3 +1152,50 @@ border-radius: 24px;
     gap: 32px;
   }
 
+
+/* 写真の角丸と影を全解除（より高級感のあるフルサイズ仕様へ） */
+.orch-photos img,
+.orch-main img,
+.orch-sub img,
+.md-photo img,
+figure img {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+
+   .orch-photos figure,
+.orch-sub figure,
+.orch-main {
+  padding: 0 !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+}
+
+
+
+   .orch-photos img,
+.orch-sub img,
+.orch-main img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+
+
+   .orch-photos {
+  display: block;
+}
+
+.orch-sub {
+  display: flex;
+  gap: 12px;
+}
+
+.orch-sub figure {
+  flex: 1;
+}
+
+
+   
