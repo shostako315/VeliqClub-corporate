@@ -45,11 +45,10 @@ p{
 
 /* Layout */
 .container{
-  max-width:1080px;
+  max-width:1200px;   /* 好きなら 1280px とかにしてもOK */
   margin:0 auto;
-  padding:0 16px;
+  padding:0 24px;
 }
-
 /* =========================
    Header
 ========================= */
@@ -1195,6 +1194,123 @@ figure img {
 
 .orch-sub figure {
   flex: 1;
+}
+
+   /* 音楽監督ブロックのレイアウト調整 */
+.md-area{
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+  margin-top:28px;
+}
+
+.md-photo{
+  margin:0;
+}
+
+.md-photo img{
+  display:block;
+  width:100%;
+  max-width:320px;
+  border-radius:0;        /* 角丸なしでクールに */
+  object-fit:cover;
+}
+
+/* PC では横並びにする */
+@media (min-width:960px){
+  .md-area{
+    flex-direction:row;
+    align-items:center;
+  }
+  .md-photo{
+    flex:0 0 320px;
+  }
+  .md-block{
+    flex:1;
+  }
+}
+
+
+   /* 写真エリア：横スクロール＋フルサイズ感 */
+.orch-photos{
+  display:flex;
+  gap:16px;
+  overflow-x:auto;
+  padding:4px 0 10px;
+  scroll-snap-type:x mandatory;
+}
+
+.orch-photos::-webkit-scrollbar{
+  height:6px;
+}
+.orch-photos::-webkit-scrollbar-thumb{
+  background:rgba(148,163,184,.6);
+  border-radius:999px;
+}
+
+.orch-photos figure{
+  flex:0 0 82%;
+  margin:0;
+  scroll-snap-align:center;
+}
+
+.orch-photos img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:0;
+  box-shadow:none;
+}
+
+/* PCでは3枚くらい並ぶイメージ */
+@media (min-width:960px){
+  .orch-photos{
+    overflow-x:hidden;
+  }
+  .orch-photos figure{
+    flex:1 1 0;
+  }
+}
+]
+/* 画像拡大用ライトボックス */
+.lightbox-backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.86);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .25s ease;
+  z-index:9999;
+}
+
+.lightbox-backdrop.is-open{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.lightbox-backdrop img{
+  max-width:92vw;
+  max-height:92vh;
+  border-radius:4px;
+  box-shadow:0 24px 70px rgba(0,0,0,.8);
+}
+
+   /* フェードアップ共通 */
+.fadeup{
+  opacity:0;
+  transform:translateY(18px);
+  transition:
+    opacity .6s ease-out,
+    transform .6s ease-out;
+  will-change:opacity,transform;
+}
+
+.fadeup.is-visible{
+  opacity:1;
+  transform:none;
 }
 
 
